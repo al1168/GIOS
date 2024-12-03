@@ -1,3 +1,14 @@
-wdakjdwakjd: 
-	gcc client.c -o result
+CC = gcc
 
+
+
+all: server client
+
+server: server.c
+	gcc server.c -o server
+
+client: client.c
+	gcc client.c -o client
+
+clean: 
+	rm -f client server
