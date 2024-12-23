@@ -1,7 +1,5 @@
 CC = gcc
 
-
-
 all: server client
 
 server: server.c
