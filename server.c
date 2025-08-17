@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-
+#include <sys/types.h>
 /*
 1. create socket
 2. define a address  
@@ -15,11 +15,17 @@
 */
 int main(void){
     int serverSocket = socket(AF_LOCAL, SOCK_STREAM, 0);
+    char server_message[256] =  "You have reached the server!";
     struct sockaddr_in serverAddress; 
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(9052);
     serverAddress.sin_addr.s_addr = INADDR_ANY;
-    bind(serverSocket, (struct sockaddr *) serverAddress, sizeof(serverAddress));
-    listen
+    bind(serverSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+    listen(serverSocket, 5);
+    int clientSocket;
+    struct sockaddr clientAddress; 
+    clientSocket = accept(serverSocket, (struct sockaddr *) &clientAddress, NULL);
+    send(clientSocket, server_message, sizeof(server_message),0);
+
     return 0;
 }

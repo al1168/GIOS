@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 /*
 Create Server procedure 
 1. define socket
