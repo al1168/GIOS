@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package dfs_service;
+
+import "google/protobuf/timestamp.proto";
+service DFSService {
+
+    // Add your service calls here
+
+    // 1. REQUIRED (Parts 1 & 2): A method to store files on the server
+    rpc Store(stream StoreRequest) returns (StoreResponse);
+    // 2. REQUIRED (Parts 1 & 2): A method to fetch files from the server
+    rpc Fetch(FetchRequest) returns (stream FetchResponse);
+    // 3. REQUIRED (Parts 1 & 2): A method to delete files from the server
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+    // 4. REQUIRED (Parts 1 & 2): A method to list all files on the server
+    rpc List(ListRequest) returns (ListResponse);
+    // 5. REQUIRED (Parts 1 & 2): A method to get the status of a file on the server
+    rpc Stat(StatRequest) returns(StatResponse);
+    // 7. Any other methods you deem necessary to complete the tasks of this assignment
+
+}
+
+message FileInfo {
+ string filename = 1;
+ int64 size = 2;   
+ int64 mtime = 3;
+}
+
+message StoreRequest {
+    string filename = 1;
+    bytes data = 2;
+}
+
+message StoreResponse {
+    int32 status = 1;
+    string messageText = 2;
+    string filename = 3; 
+    int64 mtime = 4;
+}
+
+message FetchRequest {
+    string filename = 1;
+}
+
+message FetchResponse{
+    bytes data = 1;
+}
+message DeleteRequest {
+    string filename = 1;
+}
+message DeleteResponse {
+    string message = 1;
+    int32 status = 2; 
+}
+
+message ListRequest{
+
+}
+message ListResponse{
+    repeated FileInfo files = 1;
+}
+message StatRequest {
+    string filename = 1;
+}
+message StatResponse {
+    FileInfo filestat = 1;
+    int32 status = 2;
+    google.protobuf.Timestamp modified = 3;
+    google.protobuf.Timestamp created = 4;
+}
+message fileName {
+    string fileName = 1;
+}
